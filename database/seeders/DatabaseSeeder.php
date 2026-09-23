@@ -15,11 +15,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $johnny = User::factory()->create([
+            'name'  => 'Johnny Jonathan',
+            'email' => 'johnny@setlist.test',
+        ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $mixes = \App\Models\Mix::factory()->count(6)->create([
+            'user_id' => $johnny->id,
+        ]);
+
+        \App\Models\Comment::factory()->count(10)->create([
+            'user_id' => $johnny->id,
+            'mix_id'  => $mixes->random()->id,
         ]);
     }
 }

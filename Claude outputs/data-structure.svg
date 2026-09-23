@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-24 -24 908 948" width="908" height="948" font-family="DejaVu Sans, Helvetica, Arial, sans-serif">
+
+  <defs>
+    <marker id="aT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1B6B66"></path>
+    </marker>
+    <marker id="aW" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8C3A52"></path>
+    </marker>
+  </defs>
+
+  <rect x="-24" y="-24" width="908" height="948" fill="#FFFFFF"></rect>
+
+  <!-- ============ users ============ -->
+  <rect x="30" y="70" width="200" height="140" rx="2" fill="#EAEBE6" stroke="#15171C" stroke-width="1.2"></rect>
+  <text x="48" y="96" font-size="13" font-weight="700" fill="#15171C">users</text>
+  <line x1="30" y1="107" x2="230" y2="107" stroke="#D5D8D0" stroke-width="1"></line>
+  <text x="48" y="129" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">id</text>
+  <text x="212" y="129" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">PK</text>
+  <text x="48" y="149" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">name</text>
+  <text x="48" y="169" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">email</text>
+  <text x="48" y="189" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">is_admin</text>
+  <text x="212" y="189" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">bool</text>
+
+  <!-- ============ mixes ============ -->
+  <rect x="320" y="70" width="230" height="220" rx="2" fill="#EAEBE6" stroke="#15171C" stroke-width="1.2"></rect>
+  <text x="338" y="96" font-size="13" font-weight="700" fill="#15171C">mixes</text>
+  <line x1="320" y1="107" x2="550" y2="107" stroke="#D5D8D0" stroke-width="1"></line>
+  <text x="338" y="129" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">id</text>
+  <text x="532" y="129" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">PK</text>
+  <text x="338" y="149" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">user_id</text>
+  <text x="532" y="149" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">FK</text>
+  <text x="338" y="169" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">title</text>
+  <text x="338" y="189" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">venue</text>
+  <text x="338" y="209" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">recorded_on</text>
+  <text x="338" y="229" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">duration_seconds</text>
+  <text x="338" y="249" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">audio_path</text>
+  <text x="532" y="249" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">file</text>
+  <text x="338" y="269" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">is_published</text>
+  <text x="532" y="269" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">bool</text>
+
+  <!-- ============ comments ============ -->
+  <rect x="640" y="70" width="190" height="140" rx="2" fill="#EAEBE6" stroke="#15171C" stroke-width="1.2"></rect>
+  <text x="658" y="96" font-size="13" font-weight="700" fill="#15171C">comments</text>
+  <line x1="640" y1="107" x2="830" y2="107" stroke="#D5D8D0" stroke-width="1"></line>
+  <text x="658" y="129" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">id</text>
+  <text x="812" y="129" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">PK</text>
+  <text x="658" y="149" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">user_id</text>
+  <text x="812" y="149" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">FK</text>
+  <text x="658" y="169" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">mix_id</text>
+  <text x="812" y="169" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">FK</text>
+  <text x="658" y="189" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">body</text>
+
+  <!-- ============ mix_track (pivot) ============ -->
+  <rect x="320" y="340" width="230" height="140" rx="2" fill="#F3E4E8" stroke="#8C3A52" stroke-width="1.4" stroke-dasharray="5 3"></rect>
+  <text x="338" y="366" font-size="13" font-weight="700" fill="#15171C">mix_track</text>
+  <line x1="320" y1="377" x2="550" y2="377" stroke="#D5D8D0" stroke-width="1"></line>
+  <text x="338" y="399" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">mix_id</text>
+  <text x="532" y="399" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">FK</text>
+  <text x="338" y="419" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">track_id</text>
+  <text x="532" y="419" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">FK</text>
+  <text x="338" y="439" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">position</text>
+  <text x="532" y="439" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">int</text>
+  <text x="338" y="459" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">starts_at_seconds</text>
+  <text x="532" y="459" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">int</text>
+
+  <!-- ============ tracks ============ -->
+  <rect x="320" y="530" width="230" height="300" rx="2" fill="#EAEBE6" stroke="#15171C" stroke-width="1.2"></rect>
+  <text x="338" y="556" font-size="13" font-weight="700" fill="#15171C">tracks</text>
+  <line x1="320" y1="567" x2="550" y2="567" stroke="#D5D8D0" stroke-width="1"></line>
+  <text x="338" y="589" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">id</text>
+  <text x="532" y="589" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">PK</text>
+  <text x="338" y="609" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">artist_id</text>
+  <text x="532" y="609" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">FK</text>
+  <text x="338" y="629" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">title</text>
+  <text x="338" y="649" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">album</text>
+  <text x="338" y="669" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">release_year</text>
+  <text x="338" y="689" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">duration_seconds</text>
+  <text x="532" y="689" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">int</text>
+  <text x="338" y="709" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">bpm</text>
+  <text x="532" y="709" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">int</text>
+  <text x="338" y="729" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">musical_key</text>
+  <text x="532" y="729" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">8A</text>
+  <text x="338" y="749" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">genre</text>
+  <text x="338" y="769" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">spotify_url</text>
+  <text x="532" y="769" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">null</text>
+  <text x="338" y="789" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">soundcloud_url</text>
+  <text x="532" y="789" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">null</text>
+  <text x="338" y="809" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">bandcamp_url</text>
+  <text x="532" y="809" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">null</text>
+
+  <!-- ============ artists ============ -->
+  <rect x="30" y="560" width="200" height="140" rx="2" fill="#EAEBE6" stroke="#15171C" stroke-width="1.2"></rect>
+  <text x="48" y="586" font-size="13" font-weight="700" fill="#15171C">artists</text>
+  <line x1="30" y1="597" x2="230" y2="597" stroke="#D5D8D0" stroke-width="1"></line>
+  <text x="48" y="619" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">id</text>
+  <text x="212" y="619" font-size="9" font-family="DejaVu Sans Mono, monospace" fill="#898D84" text-anchor="end">PK</text>
+  <text x="48" y="639" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">name</text>
+  <text x="48" y="659" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">country</text>
+  <text x="48" y="679" font-size="10.5" font-family="DejaVu Sans Mono, monospace" fill="#55594F">formed_year</text>
+
+  <!-- ============ relations ============ -->
+  <line x1="230" y1="140" x2="314" y2="140" stroke="#1B6B66" stroke-width="1.4" marker-end="url(#aT)"></line>
+  <text x="272" y="131" font-size="10" font-weight="700" font-family="DejaVu Sans Mono, monospace" fill="#1B6B66" text-anchor="middle">1 — N</text>
+
+  <line x1="550" y1="140" x2="634" y2="140" stroke="#1B6B66" stroke-width="1.4" marker-end="url(#aT)"></line>
+  <text x="592" y="131" font-size="10" font-weight="700" font-family="DejaVu Sans Mono, monospace" fill="#1B6B66" text-anchor="middle">1 — N</text>
+
+  <polyline points="130,64 130,30 735,30 735,64" fill="none" stroke="#1B6B66" stroke-width="1.4" marker-end="url(#aT)"></polyline>
+  <text x="432" y="22" font-size="10" font-weight="700" font-family="DejaVu Sans Mono, monospace" fill="#1B6B66" text-anchor="middle">1 — N  ·  a user writes many comments</text>
+
+  <line x1="435" y1="290" x2="435" y2="334" stroke="#8C3A52" stroke-width="1.4" marker-end="url(#aW)"></line>
+  <text x="449" y="316" font-size="10" font-weight="700" font-family="DejaVu Sans Mono, monospace" fill="#8C3A52">N — M</text>
+
+  <line x1="435" y1="480" x2="435" y2="524" stroke="#8C3A52" stroke-width="1.4" marker-end="url(#aW)"></line>
+  <text x="449" y="506" font-size="10" font-weight="700" font-family="DejaVu Sans Mono, monospace" fill="#8C3A52">N — M</text>
+
+  <line x1="230" y1="630" x2="314" y2="630" stroke="#1B6B66" stroke-width="1.4" marker-end="url(#aT)"></line>
+  <text x="272" y="621" font-size="10" font-weight="700" font-family="DejaVu Sans Mono, monospace" fill="#1B6B66" text-anchor="middle">1 — N</text>
+
+  <!-- ============ legend ============ -->
+  <line x1="30" y1="878" x2="66" y2="878" stroke="#1B6B66" stroke-width="1.4" marker-end="url(#aT)"></line>
+  <text x="76" y="882" font-size="10" font-family="DejaVu Sans Mono, monospace" fill="#55594F">one row on the left, many on the right</text>
+
+  <rect x="400" y="869" width="30" height="17" rx="2" fill="#F3E4E8" stroke="#8C3A52" stroke-width="1.4" stroke-dasharray="5 3"></rect>
+  <text x="440" y="882" font-size="10" font-family="DejaVu Sans Mono, monospace" fill="#55594F">pivot table — carries the many-to-many relation</text>
+
+</svg>
