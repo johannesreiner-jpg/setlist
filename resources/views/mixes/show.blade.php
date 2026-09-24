@@ -7,6 +7,27 @@
     <h1 class="text-3xl font-semibold text-white mt-4 mb-1">{{ $mix->title }}</h1>
     <p class="text-neutral-500 mb-10">by {{ $mix->user->name }}</p>
 
+    @auth
+        <form method="POST" action="{{ route('mixes.comments.store', $mix) }}" class="mb-10">
+            @csrf
+
+            <textarea name="body" rows="3" placeholder="Write a comment…"
+                      class="w-full bg-neutral-900 border border-neutral-700 rounded p-3 text-neutral-200"></textarea>
+
+            @error('body')
+                <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+            @enderror
+
+            <button type="submit" class="mt-2 px-4 py-2 bg-neutral-200 text-neutral-900 rounded text-sm font-medium">
+                Post comment
+            </button>
+        </form>
+    @else
+        <p class="text-neutral-500 mb-10">
+            <a href="{{ route('login') }}" class="underline">Log in</a> to comment.
+        </p>
+    @endauth
+
     <h2 class="text-lg font-semibold text-neutral-200 mb-4">
         Comments ({{ $mix->comments->count() }})
     </h2>

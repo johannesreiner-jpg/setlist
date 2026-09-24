@@ -19,4 +19,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/mixes', [App\Http\Controllers\MixController::class, 'index'])->name('mixes.index');
 Route::get('/mixes/{mix}', [App\Http\Controllers\MixController::class, 'show'])->name('mixes.show');
 
+Route::post('/mixes/{mix}/comments', [App\Http\Controllers\CommentController::class, 'store'])
+    ->middleware('auth')
+    ->name('mixes.comments.store');
+
 require __DIR__.'/auth.php';
