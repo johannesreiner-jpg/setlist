@@ -5,7 +5,7 @@
     <ul class="space-y-3">
         @foreach ($mixes as $mix)
             <li class="border border-neutral-800 rounded p-4">
-                <span class="text-neutral-100">{{ $mix->title }}</span>
+                <a href="{{ route('mixes.show', $mix) }}" class="text-neutral-100 hover:text-white">{{ $mix->title }}</a>
                 <span class="text-neutral-500 text-sm">— {{ $mix->user->name }}</span>
             </li>
         @endforeach

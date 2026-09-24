@@ -25,12 +25,12 @@ class DatabaseSeeder extends Seeder
             ->create([
                 'user_id' => $johnny->id,
             ]);
-
-        \App\Models\Comment::factory()
-            ->count(10)
-            ->create([
+            
+        foreach ($mixes as $mix) {
+            \App\Models\Comment::factory()->count(2)->create([
                 'user_id' => $johnny->id,
-                'mix_id' => $mixes->random()->id,
+                'mix_id'  => $mix->id,
             ]);
+        }
     }
 }

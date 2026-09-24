@@ -17,5 +17,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/mixes', [App\Http\Controllers\MixController::class, 'index'])->name('mixes.index');
+Route::get('/mixes/{mix}', [App\Http\Controllers\MixController::class, 'show'])->name('mixes.show');
 
 require __DIR__.'/auth.php';
