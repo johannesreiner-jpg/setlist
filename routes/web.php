@@ -23,4 +23,9 @@ Route::post('/mixes/{mix}/comments', [App\Http\Controllers\CommentController::cl
     ->middleware('auth')
     ->name('mixes.comments.store');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/user/mixes/create', [App\Http\Controllers\MixController::class, 'create'])->name('user.mixes.create');
+    Route::post('/user/mixes', [App\Http\Controllers\MixController::class, 'store'])->name('user.mixes.store');
+});
+
 require __DIR__.'/auth.php';

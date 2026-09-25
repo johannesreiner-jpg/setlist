@@ -18,4 +18,20 @@ class MixController extends Controller
     {
         return view('mixes.show', compact('mix'));
     }
+
+    public function create()
+    {
+        return view('user.mixes.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+        ]);
+
+        $mix = $request->user()->mixes()->create($validated);
+
+        return redirect()->route('mixes.show', $mix);
+    }
 }
