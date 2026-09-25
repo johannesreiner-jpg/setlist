@@ -34,4 +34,33 @@ class MixController extends Controller
 
         return redirect()->route('mixes.show', $mix);
     }
+
+    public function edit(Mix $mix)
+    {
+        $this->authorize('update', $mix);
+
+        return view('user.mixes.edit', compact('mix'));
+    }
+
+    public function update(Request $request, Mix $mix)
+    {
+        $this->authorize('update', $mix);
+
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+        ]);
+
+        $mix->update($validated);
+
+        return redirect()->route('mixes.show', $mix);
+    }
+
+    public function destroy(Mix $mix)
+    {
+        $this->authorize('delete', $mix);
+
+        $mix->delete();
+
+        return redirect()->route('mixes.index');
+    }
 }
