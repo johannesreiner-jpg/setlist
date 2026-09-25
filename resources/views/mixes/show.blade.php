@@ -7,6 +7,25 @@
     <h1 class="text-3xl font-semibold text-white mt-4 mb-1">{{ $mix->title }}</h1>
     <p class="text-neutral-500 mb-10">by {{ $mix->user->name }}</p>
 
+    @can('update', $mix)
+        <div class="flex gap-3 mb-10">
+            <a href="{{ route('user.mixes.edit', $mix) }}"
+               class="px-3 py-1.5 border border-neutral-700 rounded text-sm text-neutral-300 hover:text-white">
+                Edit
+            </a>
+
+            <form method="POST" action="{{ route('user.mixes.destroy', $mix) }}"
+                  onsubmit="return confirm('Delete this set?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                        class="px-3 py-1.5 border border-neutral-700 rounded text-sm text-red-400 hover:text-red-300">
+                    Delete
+                </button>
+            </form>
+        </div>
+    @endcan
+
     @auth
         <form method="POST" action="{{ route('mixes.comments.store', $mix) }}" class="mb-10">
             @csrf
