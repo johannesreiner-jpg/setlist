@@ -26,6 +26,14 @@
         </div>
     @endcan
 
+    @if ($mix->audio_path)
+        <audio controls class="w-full mb-10">
+            <source src="{{ asset('storage/' . $mix->audio_path) }}">
+        </audio>
+    @else
+        <p class="text-neutral-600 text-sm mb-10">No audio file for this set.</p>
+    @endif
+
     @auth
         <form method="POST" action="{{ route('mixes.comments.store', $mix) }}" class="mb-10">
             @csrf

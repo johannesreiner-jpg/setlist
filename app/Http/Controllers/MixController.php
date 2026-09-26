@@ -28,7 +28,14 @@ class MixController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
+            'audio' => ['nullable', 'file', 'mimes:mp3,wav', 'max:51200'],
         ]);
+
+        if ($request->hasFile('audio')) {
+            $validated['audio_path'] = $request->file('audio')->store('mixes', 'public');
+        }
+
+        unset($validated['audio']);
 
         $mix = $request->user()->mixes()->create($validated);
 
