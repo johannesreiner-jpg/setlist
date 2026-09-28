@@ -28,7 +28,7 @@ class MixController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'audio' => ['nullable', 'file', 'mimes:mp3,wav', 'max:51200'],
+            'audio' => ['nullable', 'file', 'mimes:mp3,wav', 'max:204800'],
         ]);
 
         if ($request->hasFile('audio')) {
