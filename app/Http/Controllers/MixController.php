@@ -14,6 +14,13 @@ class MixController extends Controller
         return view('mixes.index', compact('mixes'));
     }
 
+    public function userIndex(Request $request)
+    {
+        $mixes = $request->user()->mixes()->latest()->get();
+
+        return view('user.mixes.index', compact('mixes'));
+    }
+
     public function show(Mix $mix)
     {
         return view('mixes.show', compact('mix'));

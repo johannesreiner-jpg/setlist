@@ -9,7 +9,7 @@
     @endauth
 
     <p class="text-lg mb-10">
-        DJ sets, the tracks inside them, and where to find every single one.
+        Your Overview
     </p>
 
     <div class="grid grid-cols-3 gap-4 max-w-2xl mb-12">

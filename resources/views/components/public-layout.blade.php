@@ -41,13 +41,16 @@
                 <a href="{{ route('welcome') }}"
                    class="nav-link {{ request()->routeIs('welcome') ? 'active' : '' }}">Home</a>
 
+                <a href="{{ route('about') }}"
+                   class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}">About</a>    
+
                 <a href="{{ route('mixes.index') }}"
                    class="nav-link {{ request()->routeIs('mixes.*') ? 'active' : '' }}">Sets</a>
 
-                <a href="{{ route('about') }}"
-                   class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}">About</a>
-
                 @auth
+                    <a href="{{ route('user.mixes.index') }}"
+                        class="nav-link {{ request()->routeIs('user.mixes.*') ? 'active' : '' }}">My sets</a>
+                    
                     <span class="neon font-medium">{{ auth()->user()->name }}</span>
 
                     <form method="POST" action="{{ route('logout') }}">

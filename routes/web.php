@@ -9,7 +9,7 @@ Route::get('/about', [App\Http\Controllers\AboutController::class, 'index'])->na
 Route::get('/dashboard', [App\Http\Controllers\Userzone\DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-    
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'update'])->name('profile.update');
@@ -24,6 +24,7 @@ Route::post('/mixes/{mix}/comments', [App\Http\Controllers\CommentController::cl
     ->name('mixes.comments.store');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/user/mixes', [App\Http\Controllers\MixController::class, 'userIndex'])->name('user.mixes.index');
     Route::get('/user/mixes/create', [App\Http\Controllers\MixController::class, 'create'])->name('user.mixes.create');
     Route::post('/user/mixes', [App\Http\Controllers\MixController::class, 'store'])->name('user.mixes.store');
     Route::get('/user/mixes/{mix}/edit', [App\Http\Controllers\MixController::class, 'edit'])->name('user.mixes.edit');
