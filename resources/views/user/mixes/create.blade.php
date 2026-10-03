@@ -26,6 +26,15 @@
             <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
         @enderror
 
+        <label for="bpm" class="block text-sm neon mt-6 mb-2">BPM <span style="color:#4A6B48">(optional)</span></label>
+        <input type="number" name="bpm" id="bpm" value="{{ old('bpm') }}" min="40" max="300"
+               placeholder="128"
+               class="w-full border neon-border rounded p-3"
+               style="background:#0F120F; color:#8FBF8A">
+        @error('bpm')
+            <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+        @enderror
+
         <label for="description" class="block text-sm neon mt-6 mb-2">Description <span style="color:#4A6B48">(optional)</span></label>
         <textarea name="description" id="description" rows="4"
                   placeholder="Where was it recorded, what is the mood …"

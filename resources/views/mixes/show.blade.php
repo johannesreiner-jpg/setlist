@@ -14,11 +14,15 @@
             <h1 class="text-3xl font-semibold neon mb-1">{{ $mix->title }}</h1>
             <p style="color:#4A6B48">by {{ $mix->user->name }}</p>
 
-            @if ($mix->genre)
-                <span class="inline-block mt-3 px-2 py-1 border neon-border rounded text-xs neon">
-                    {{ $mix->genre }}
-                </span>
-            @endif
+    <div class="flex gap-2 mt-3">
+        @if ($mix->genre)
+            <span class="px-2 py-1 border neon-border rounded text-xs neon">{{ $mix->genre }}</span>
+        @endif
+
+        @if ($mix->bpm)
+            <span class="px-2 py-1 border neon-border rounded text-xs neon">{{ $mix->bpm }} BPM</span>
+        @endif
+            </div>
         </div>
     </div>
 

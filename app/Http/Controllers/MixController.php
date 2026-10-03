@@ -7,18 +7,41 @@ use App\Models\Mix;
 
 class MixController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $mixes = Mix::latest()->get();
+        $search = $request->query('q');
 
-        return view('mixes.index', compact('mixes'));
+        $mixes = Mix::with('user')
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                      ->orWhere('genre', 'like', "%{$search}%")
+                      ->orWhereHas('user', function ($u) use ($search) {
+                          $u->where('name', 'like', "%{$search}%");
+                      });
+                });
+            })
+            ->latest()
+            ->get();
+
+        return view('mixes.all-sets', compact('mixes', 'search'));
     }
 
     public function userIndex(Request $request)
     {
-        $mixes = $request->user()->mixes()->latest()->get();
+        $search = $request->query('q');
 
-        return view('user.mixes.index', compact('mixes'));
+        $mixes = $request->user()->mixes()
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                      ->orWhere('genre', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->get();
+
+        return view('user.mixes.my-sets', compact('mixes', 'search'));
     }
 
     public function show(Mix $mix)
@@ -36,6 +59,7 @@ class MixController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'genre' => ['nullable', 'string', 'max:100'],
+            'bpm' => ['nullable', 'integer', 'min:40', 'max:300'],
             'description' => ['nullable', 'string', 'max:2000'],
             'audio' => ['nullable', 'file', 'mimes:mp3,wav', 'max:204800'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
