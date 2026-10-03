@@ -23,9 +23,37 @@
         .neon-border{ border-color: #16401A; }
         .neon-btn   { background: var(--neon); color: #0A0B0A; }
         .neon-btn:hover { background: #5BFF40; }
-        a.nav-link       { color: var(--ink); }
-        a.nav-link:hover { color: var(--neon); }
-        a.nav-link.active{ color: var(--neon); }
+        .nav-link       { color: var(--ink); }
+        .nav-link:hover { color: var(--neon); }
+        .nav-link.active{ color: var(--neon); }
+
+        details.menu > summary {
+            list-style: none;
+            cursor: pointer;
+        }
+        details.menu > summary::-webkit-details-marker { display: none; }
+        details.menu > summary::after { content: " ▾"; }
+
+        .menu-panel {
+            position: absolute;
+            right: 0;
+            margin-top: .6rem;
+            min-width: 11rem;
+            background: #0F120F;
+            border: 1px solid #16401A;
+            border-radius: .375rem;
+            padding: .25rem;
+            z-index: 50;
+        }
+        .menu-item {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: .5rem .75rem;
+            border-radius: .25rem;
+            color: var(--ink);
+        }
+        .menu-item:hover { color: var(--neon); background: #16401A; }
         a.link       { color: var(--ink); }
         a.link:hover { color: var(--neon); }
     </style>
@@ -39,33 +67,45 @@
                 {{ config('app.name') }}
             </a>
 
-            <nav class="flex items-center gap-6 text-sm">
+                    <nav class="flex items-center gap-6 text-sm">
                 <a href="{{ route('welcome') }}"
                    class="nav-link {{ request()->routeIs('welcome') ? 'active' : '' }}">Home</a>
 
                 <a href="{{ route('about') }}"
-                   class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}">About</a>    
+                   class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}">About</a>
 
-                <a href="{{ route('mixes.index') }}"
-                   class="nav-link {{ request()->routeIs('mixes.*') ? 'active' : '' }}">Sets</a>
+                <details class="menu relative">
+                    <summary class="nav-link {{ request()->routeIs('mixes.*') || request()->routeIs('user.mixes.*') ? 'active' : '' }}">Sets</summary>
+
+                    <div class="menu-panel">
+                        <a href="{{ route('mixes.index') }}" class="menu-item">All sets</a>
+
+                        @auth
+                            <a href="{{ route('user.mixes.index') }}" class="menu-item">My sets</a>
+                            <a href="{{ route('user.mixes.create') }}" class="menu-item">Create set</a>
+                        @endauth
+                    </div>
+                </details>
 
                 @auth
-                    <a href="{{ route('user.mixes.index') }}"
-                        class="nav-link {{ request()->routeIs('user.mixes.*') ? 'active' : '' }}">My sets</a>
-                    
-                    <span class="neon font-medium">{{ auth()->user()->name }}</span>
+                    <details class="menu relative">
+                        <summary class="nav-link">{{ auth()->user()->name }}</summary>
 
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="nav-link">Log out</button>
-                    </form>
+                        <div class="menu-panel">
+                            <a href="{{ route('profile.edit') }}" class="menu-item">Account settings</a>
+
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="menu-item">Log out</button>
+                            </form>
+                        </div>
+                    </details>
                 @else
                     <a href="{{ route('login') }}" class="nav-link">Log in</a>
                     <a href="{{ route('register') }}"
                        class="neon-btn px-3 py-1.5 rounded text-sm font-medium">Register</a>
                 @endauth
             </nav>
-
         </div>
     </header>
 
@@ -78,6 +118,13 @@
             &copy; {{ date('Y') }} {{ config('app.name') }} — a DJ set archive by Johnny Jonathan
         </div>
     </footer>
-
+    <script>
+        document.addEventListener('click', (e) => {
+            document.querySelectorAll('details.menu[open]').forEach((menu) => {
+                if (!menu.contains(e.target)) menu.open = false;
+            });
+        });
+    </script>
+    
 </body>
 </html>
