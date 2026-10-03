@@ -1,64 +1,37 @@
 <section>
-    <header>
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Profile Information') }}
-        </h2>
+    <h2 class="text-lg font-semibold neon mb-1">Profile information</h2>
+    <p class="text-sm mb-6" style="color:#4A6B48">Update your name and email address.</p>
 
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __("Update your account's profile information and email address.") }}
-        </p>
-    </header>
+    @if (session('status') === 'profile-updated')
+        <p class="text-sm neon mb-4">Saved.</p>
+    @endif
 
-    <form id="send-verification" method="post" action="{{ route('verification.send') }}">
-        @csrf
-    </form>
-
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="space-y-6">
         @csrf
         @method('patch')
 
         <div>
-            <x-breeze.input-label for="name" :value="__('Name')" />
-            <x-breeze.text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-breeze.input-error class="mt-2" :messages="$errors->get('name')" />
+            <label for="name" class="block text-sm neon mb-2">Name</label>
+            <input id="name" name="name" type="text" required autocomplete="name"
+                   value="{{ old('name', $user->name) }}"
+                   class="w-full border neon-border rounded p-3"
+                   style="background:#0F120F; color:#8FBF8A">
+            @error('name')
+                <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
-            <x-breeze.input-label for="email" :value="__('Email')" />
-            <x-breeze.text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
-            <x-breeze.input-error class="mt-2" :messages="$errors->get('email')" />
-
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                <div>
-                    <p class="text-sm mt-2 text-gray-800">
-                        {{ __('Your email address is unverified.') }}
-
-                        <button form="send-verification" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            {{ __('Click here to re-send the verification email.') }}
-                        </button>
-                    </p>
-
-                    @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 font-medium text-sm text-green-600">
-                            {{ __('A new verification link has been sent to your email address.') }}
-                        </p>
-                    @endif
-                </div>
-            @endif
+            <label for="email" class="block text-sm neon mb-2">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="username"
+                   value="{{ old('email', $user->email) }}"
+                   class="w-full border neon-border rounded p-3"
+                   style="background:#0F120F; color:#8FBF8A">
+            @error('email')
+                <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
-        <div class="flex items-center gap-4">
-            <x-breeze.primary-button>{{ __('Save') }}</x-breeze.primary-button>
-
-            @if (session('status') === 'profile-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600"
-                >{{ __('Saved.') }}</p>
-            @endif
-        </div>
+        <button type="submit" class="neon-btn px-4 py-2 rounded text-sm font-medium">Save</button>
     </form>
 </section>
