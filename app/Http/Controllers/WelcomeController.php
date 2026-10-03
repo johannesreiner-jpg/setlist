@@ -2,19 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
 use App\Models\Mix;
-use App\Models\User;
+use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $user = $request->user();
+
         return view('welcome', [
-            'mixCount' => Mix::count(),
-            'djCount' => User::count(),
-            'commentCount' => Comment::count(),
-            'latestComments' => Comment::with(['user', 'mix'])->latest()->take(3)->get(),
+            'latestMixes' => Mix::with('user')->latest()->take(3)->get(),
+
+            'genres' => Mix::whereNotNull('genre')
+                ->where('genre', '!=', '')
+                ->distinct()
+                ->orderBy('genre')
+                ->pluck('genre'),
+
+            'myMixCount' => $user ? $user->mixes()->count() : 0,
+            'myCommentCount' => $user ? $user->receivedComments()->count() : 0,
+
+            'commentsOnMyMixes' => $user
+                ? $user->receivedComments()
+                    ->with(['user', 'mix'])
+                    ->latest('comments.created_at')
+                    ->take(3)
+                    ->get()
+                : collect(),
         ]);
     }
 }
