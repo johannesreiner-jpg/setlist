@@ -26,6 +26,8 @@
         a.nav-link       { color: var(--ink); }
         a.nav-link:hover { color: var(--neon); }
         a.nav-link.active{ color: var(--neon); }
+        a.link       { color: var(--ink); }
+        a.link:hover { color: var(--neon); }
     </style>
 </head>
 <body class="font-sans antialiased min-h-screen flex flex-col">

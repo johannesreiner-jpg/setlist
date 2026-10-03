@@ -35,14 +35,21 @@ class MixController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
+            'genre' => ['nullable', 'string', 'max:100'],
+            'description' => ['nullable', 'string', 'max:2000'],
             'audio' => ['nullable', 'file', 'mimes:mp3,wav', 'max:204800'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ]);
 
         if ($request->hasFile('audio')) {
             $validated['audio_path'] = $request->file('audio')->store('mixes', 'public');
         }
 
-        unset($validated['audio']);
+        if ($request->hasFile('image')) {
+            $validated['image_path'] = $request->file('image')->store('covers', 'public');
+        }
+
+        unset($validated['audio'], $validated['image']);
 
         $mix = $request->user()->mixes()->create($validated);
 
@@ -62,7 +69,17 @@ class MixController extends Controller
 
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
+            'genre' => ['nullable', 'string', 'max:100'],
+            'description' => ['nullable', 'string', 'max:2000'],
+            'audio' => ['nullable', 'file', 'mimes:mp3,wav', 'max:204800'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ]);
+
+        if ($request->hasFile('audio')) {
+            $validated['audio_path'] = $request->file('audio')->store('mixes', 'public');
+        }
+
+        unset($validated['audio'], $validated['image']);
 
         $mix->update($validated);
 
@@ -75,6 +92,6 @@ class MixController extends Controller
 
         $mix->delete();
 
-        return redirect()->route('mixes.index');
+        return redirect()->route('user.mixes.index');
     }
 }

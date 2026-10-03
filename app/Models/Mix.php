@@ -10,7 +10,7 @@ class Mix extends Model
     /** @use HasFactory<\Database\Factories\MixFactory> */
     use HasFactory;
 
-    protected $fillable = ['user_id', 'title', 'audio_path'];
+        protected $fillable = ['user_id', 'title', 'audio_path', 'genre', 'description', 'image_path'];
 
     public function user()
     {
