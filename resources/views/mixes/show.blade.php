@@ -27,7 +27,7 @@
     </div>
 
     @if ($mix->description)
-        <p class="max-w-2xl mb-10 whitespace-pre-line">{{ $mix->description }}</p>
+        <p class="max-w-3xl mb-10 whitespace-pre-line">{{ $mix->description }}</p>
     @endif
 
     @can('update', $mix)
@@ -50,15 +50,63 @@
     @endcan
 
     @if ($mix->audio_path)
-        <audio controls class="w-full mb-10">
-            <source src="{{ asset('storage/' . $mix->audio_path) }}">
-        </audio>
+        <div class="border neon-border rounded p-4 mb-10 max-w-3xl">
+            <p id="waveformLoading" class="text-sm" style="color:#4A6B48">Loading waveform…</p>
+
+            <div id="waveform"></div>
+
+            <div class="flex items-center gap-4 mt-3">
+                <button type="button" id="playPause"
+                        class="neon-btn px-4 py-1.5 rounded text-sm font-medium">Play</button>
+
+                <span class="text-sm" style="color:#4A6B48">
+                    <span id="currentTime">0:00</span> / <span id="totalTime">0:00</span>
+                </span>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/wavesurfer.js@7/dist/wavesurfer.min.js"></script>
+        <script>
+            const wavesurfer = WaveSurfer.create({
+                container: '#waveform',
+                url: '{{ asset('storage/' . $mix->audio_path) }}',
+                height: 80,
+                waveColor: '#1F5C22',
+                progressColor: '#39FF14',
+                cursorColor: '#39FF14',
+                barWidth: 2,
+                barGap: 1,
+                barRadius: 2,
+            });
+
+            const button = document.getElementById('playPause');
+            const current = document.getElementById('currentTime');
+            const total = document.getElementById('totalTime');
+            const loading = document.getElementById('waveformLoading');
+
+            const format = (seconds) => {
+                const minutes = Math.floor(seconds / 60);
+                const rest = Math.floor(seconds % 60).toString().padStart(2, '0');
+                return minutes + ':' + rest;
+            };
+
+            button.addEventListener('click', () => wavesurfer.playPause());
+
+            wavesurfer.on('ready', () => {
+                loading.style.display = 'none';
+                total.textContent = format(wavesurfer.getDuration());
+            });
+
+            wavesurfer.on('timeupdate', (time) => current.textContent = format(time));
+            wavesurfer.on('play', () => button.textContent = 'Pause');
+            wavesurfer.on('pause', () => button.textContent = 'Play');
+        </script>
     @else
         <p class="text-sm mb-10" style="color:#4A6B48">No audio file for this set.</p>
     @endif
 
     @auth
-        <form method="POST" action="{{ route('mixes.comments.store', $mix) }}" class="mb-10 max-w-2xl">
+        <form method="POST" action="{{ route('mixes.comments.store', $mix) }}" class="mb-10 max-w-3xl">
             @csrf
 
             <textarea name="body" rows="3" placeholder="Write a comment…"
@@ -83,7 +131,7 @@
         Comments ({{ $mix->comments->count() }})
     </h2>
 
-    <ul class="space-y-4 max-w-2xl">
+    <ul class="space-y-4 max-w-3xl">
         @forelse ($mix->comments as $comment)
             <li class="border-l-2 neon-border pl-4">
                 <p>{{ $comment->body }}</p>
