@@ -1,45 +1,58 @@
 # Setlist
 
-A music library and DJ set archive built with Laravel.
-
-Course project for **Software Development Basics (MTM_03.1)**
-at CODE University of Applied Sciences.
+An archive for recorded DJ sets, built with Laravel as a course project for
+**Software Development Basics (MTM_03.1)** at CODE University of Applied
+Sciences, Berlin.
 
 ## What it does
 
-Visitors browse songs, artists and genres and move between them through
-linked detail pages. Registered users upload their own DJ sets together
-with a tracklist, and see how often their tracks get played. Every track
-in a tracklist links out to where it can be streamed or bought —
-Spotify, SoundCloud, Bandcamp.
+- Anyone can browse, search and listen to every set — no account needed
+- Registered users upload their own sets with cover art, genre, BPM and a description
+- Audio is drawn as a waveform (wavesurfer.js) instead of a plain player
+- Every set has a comment thread
+- Only the uploader can edit or delete a set, enforced by a policy
+- Search covers set title, genre and DJ name
 
-## Status
+## Data model
 
-Work in progress.
+| Relationship | Type |
+|---|---|
+| `User` has many `Mix` | 1-N |
+| `Mix` has many `Comment` | 1-N |
+| `User` has many `Comment` | 1-N |
+| `User` reaches the comments on their own sets | `hasManyThrough` |
 
-- [x] Public layout with shared header and footer
-- [x] Authentication (login, registration, profile)
-- [ ] Songs, artists and genres
-- [ ] DJ sets with tracklists
-- [ ] Play tracking and user dashboard
-- [ ] Admin area
+A `Mix` belongs to the `User` who uploaded it; a `Comment` belongs to both a
+`Mix` and the `User` who wrote it.
 
-## Stack
+## Installation
 
-Laravel 13 · PHP 8.4 · Blade · Tailwind CSS · Alpine.js · SQLite · Pest
-
-## Local setup
-
-```bash
+```
 composer install
 cp .env.example .env
 php artisan key:generate
-php artisan migrate --seed
+touch database/database.sqlite
+php artisan migrate:fresh --seed
+php artisan storage:link
 ```
 
-Serve the folder with [Laravel Herd](https://herd.laravel.com)
-and open `http://setlist.test`.
+The last command is required so uploaded audio and images are served. The
+`public/storage` symlink is not part of the repository.
 
-## Credits
+## Test accounts
 
-Built on the educational Laravel starter pack provided for this course.
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@admin.com | password |
+| Second DJ | johnny@setlist.test | password |
+
+The second account exists so that the ownership rules are visible: logged in
+as one user, the edit and delete controls on the other user's sets are gone,
+and calling the edit URL directly returns 403.
+
+## A note on media files
+
+Uploaded files live in `storage/app/public`, which is excluded from the
+repository. After a fresh seed the example sets therefore have a title,
+genre, BPM and description, but no audio file. Upload one through
+**My sets → New set** to see the waveform player.
