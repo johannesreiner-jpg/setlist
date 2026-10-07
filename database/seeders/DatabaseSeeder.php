@@ -29,8 +29,8 @@ class DatabaseSeeder extends Seeder
 
         $demoSets = [
             ['genre' => 'Drum & Bass', 'bpm' => 155, 'audio' => 'dnb-155.mp3',    'cover' => 'demo-cover-1.jpg'],
-            ['genre' => 'Techno',      'bpm' => 140, 'audio' => 'techno-140.mp3', 'cover' => 'demo-cover-2.jpg'],
-            ['genre' => 'House',       'bpm' => 133, 'audio' => 'house-133.mp3',  'cover' => 'demo-cover-3.jpg'],
+            ['genre' => 'Hardgroove Techno', 'bpm' => 140, 'audio' => 'techno-140.mp3', 'cover' => 'demo-cover-2.jpg'],
+            ['genre' => 'Groove House', 'bpm' => 133, 'audio' => 'house-133.mp3',  'cover' => 'demo-cover-3.jpg'],
         ];
 
         foreach ([$admin, $johnny] as $user) {

@@ -17,16 +17,20 @@
             <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
         @enderror
 
-        <label for="genre" class="block text-sm neon mt-6 mb-2">Genre <span style="color:#4A6B48">(optional)</span></label>
-        <input type="text" name="genre" id="genre" value="{{ old('genre') }}"
-               placeholder="Techno, House, Drum &amp; Bass …"
-               class="w-full border neon-border rounded p-3"
-               style="background:#0F120F; color:#8FBF8A">
+        <label for="genre" class="block text-sm neon mt-6 mb-2">Genre</label>
+        <select name="genre" id="genre"
+                class="w-full border neon-border rounded p-3"
+                style="background:#0F120F; color:#8FBF8A">
+            <option value="">Choose a genre …</option>
+            @foreach ($genres as $genre)
+                <option value="{{ $genre }}" @selected(old('genre') === $genre)>{{ $genre }}</option>
+            @endforeach
+        </select>
         @error('genre')
             <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
         @enderror
 
-        <label for="bpm" class="block text-sm neon mt-6 mb-2">BPM <span style="color:#4A6B48">(optional)</span></label>
+        <label for="bpm" class="block text-sm neon mt-6 mb-2">BPM</label>
         <input type="number" name="bpm" id="bpm" value="{{ old('bpm') }}" min="40" max="300"
                placeholder="128"
                class="w-full border neon-border rounded p-3"
@@ -44,14 +48,14 @@
             <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
         @enderror
 
-        <label for="audio" class="block text-sm neon mt-6 mb-2">Audio file <span style="color:#4A6B48">(optional)</span></label>
+        <label for="audio" class="block text-sm neon mt-6 mb-2">Audio file</label>
         <input type="file" name="audio" id="audio" accept=".mp3,.wav"
                class="w-full text-sm file:mr-3 file:py-2 file:px-3 file:rounded file:border-0 file:bg-neutral-800 file:text-neutral-200">
         @error('audio')
             <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
         @enderror
 
-        <label for="image" class="block text-sm neon mt-6 mb-2">Cover image <span style="color:#4A6B48">(optional)</span></label>
+        <label for="image" class="block text-sm neon mt-6 mb-2">Cover image</label>
         <input type="file" name="image" id="image" accept=".jpg,.jpeg,.png,.webp"
                class="w-full text-sm file:mr-3 file:py-2 file:px-3 file:rounded file:border-0 file:bg-neutral-800 file:text-neutral-200">
         @error('image')

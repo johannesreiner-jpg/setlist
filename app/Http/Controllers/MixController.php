@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\Mix;
 
 class MixController extends Controller
@@ -51,18 +52,18 @@ class MixController extends Controller
 
     public function create()
     {
-        return view('user.mixes.create');
+        return view('user.mixes.create', ['genres' => Mix::GENRES]);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'genre' => ['nullable', 'string', 'max:100'],
-            'bpm' => ['nullable', 'integer', 'min:40', 'max:300'],
+            'genre' => ['required', Rule::in(Mix::GENRES)],
+            'bpm' => ['required', 'integer', 'min:40', 'max:300'],
             'description' => ['nullable', 'string', 'max:2000'],
-            'audio' => ['nullable', 'file', 'mimes:mp3,wav', 'max:204800'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'audio' => ['required', 'file', 'mimes:mp3,wav', 'max:204800'],
+            'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ]);
 
         if ($request->hasFile('audio')) {
@@ -84,16 +85,20 @@ class MixController extends Controller
     {
         $this->authorize('update', $mix);
 
-        return view('user.mixes.edit', compact('mix'));
+        return view('user.mixes.edit', [
+            'mix' => $mix,
+            'genres' => Mix::GENRES,
+        ]);
     }
 
     public function update(Request $request, Mix $mix)
     {
         $this->authorize('update', $mix);
 
-        $validated = $request->validate([
+            $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'genre' => ['nullable', 'string', 'max:100'],
+            'genre' => ['required', Rule::in(Mix::GENRES)],
+            'bpm' => ['required', 'integer', 'min:40', 'max:300'],
             'description' => ['nullable', 'string', 'max:2000'],
             'audio' => ['nullable', 'file', 'mimes:mp3,wav', 'max:204800'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
@@ -101,6 +106,10 @@ class MixController extends Controller
 
         if ($request->hasFile('audio')) {
             $validated['audio_path'] = $request->file('audio')->store('mixes', 'public');
+        }
+
+        if ($request->hasFile('image')) {
+            $validated['image_path'] = $request->file('image')->store('covers', 'public');
         }
 
         unset($validated['audio'], $validated['image']);

@@ -19,9 +19,13 @@
         @enderror
 
         <label for="genre" class="block text-sm neon mt-6 mb-2">Genre</label>
-        <input type="text" name="genre" id="genre" value="{{ old('genre', $mix->genre) }}"
-               class="w-full border neon-border rounded p-3"
-               style="background:#0F120F; color:#8FBF8A">
+        <select name="genre" id="genre"
+                class="w-full border neon-border rounded p-3"
+                style="background:#0F120F; color:#8FBF8A">
+            @foreach ($genres as $genre)
+                <option value="{{ $genre }}" @selected(old('genre', $mix->genre) === $genre)>{{ $genre }}</option>
+            @endforeach
+        </select>
         @error('genre')
             <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
         @enderror
