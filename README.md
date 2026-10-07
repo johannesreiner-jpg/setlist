@@ -53,6 +53,7 @@ and calling the edit URL directly returns 403.
 ## A note on media files
 
 Uploaded files live in `storage/app/public`, which is excluded from the
-repository. After a fresh seed the example sets therefore have a title,
-genre, BPM and description, but no audio file. Upload one through
-**My sets → New set** to see the waveform player.
+repository. Three 60-second excerpts from my own sets ship in
+`database/seeders/demo` instead, so a fresh `php artisan migrate:fresh --seed`
+produces six sets with real audio, covers and matching BPM. The seeder copies
+them onto the public disk, so run `php artisan storage:link` once beforehand.
